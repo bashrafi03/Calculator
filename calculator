@@ -1,0 +1,341 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.*;
+
+
+public class Calculator extends JFrame {
+    private JTextArea display;
+    private double tempFirst = 0.0;
+    final private boolean[] operation = new boolean[4];
+
+    public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            System.out.println("Could not load system look and feel.");
+        }
+        new Calculator();
+    }
+
+    public Calculator() {
+        super("Calculator");
+        sendMenuBar();
+        sendUI(this);
+        sendDisplay();
+        sendButtons();
+    }
+
+    // Sends menu bar to display
+    private void sendMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu file = new JMenu(" File ");
+        JMenuItem close = new JMenuItem("Close");
+        JMenu edit = new JMenu(" Edit ");
+        JMenu help = new JMenu(" Help ");
+        JMenuItem copy = new JMenuItem("Copy");
+        JMenuItem view = new JMenuItem("View Help");
+        JMenuItem about = new JMenuItem("About Calculator");
+
+        setJMenuBar(menuBar);
+        menuBar.add(file);
+        menuBar.add(edit);
+        menuBar.add(help);
+
+        close.addActionListener(e -> System.exit(0));
+
+        copy.addActionListener(e -> {
+            String tempDisplay = display.getText();
+            StringSelection string = new StringSelection(tempDisplay);
+            Clipboard system = Toolkit.getDefaultToolkit().getSystemClipboard();
+            system.setContents(string, string);
+        });
+
+        view.addActionListener(e -> JOptionPane.showMessageDialog(null, "What do you need help with? it's a calculator"));
+        about.addActionListener(e -> JOptionPane.showMessageDialog(null, "This calculator was developed by me!"));
+
+        file.add(close);
+        edit.add(copy);
+        help.add(view);
+        help.add(about);
+    }
+
+    // Sends buttons to display
+    private void sendButtons() {
+        // Adds number 7
+        JButton seven = new JButton("7");
+        seven.setBounds(10, 70, 45, 45);
+        seven.addActionListener(e -> {
+            if (display.getText().length() > 13) {
+                return;
+            }
+            if (display.getText().equalsIgnoreCase("0")) {
+                display.setText("7");
+                return;
+            }
+            display.append("7");
+        });
+        add(seven);
+
+        // Adds number 8
+        JButton eight = new JButton("8");
+        eight.setBounds(55, 70, 45, 45);
+        eight.addActionListener(e -> {
+            if (display.getText().length() > 13) {
+                return;
+            }
+            if (display.getText().equalsIgnoreCase("0")) {
+                display.setText("8");
+                return;
+            }
+            display.append("8");
+        });
+        add(eight);
+
+        // Adds number 9
+        JButton nine = new JButton("9");
+        nine.setBounds(100, 70, 45, 45);
+        nine.addActionListener(e -> {
+            if (display.getText().length() > 13) {
+                return;
+            }
+            if (display.getText().equalsIgnoreCase("0")) {
+                display.setText("9");
+                return;
+            }
+            display.append("9");
+        });
+        add(nine);
+
+        // Adds number 4
+        JButton four = new JButton("4");
+        four.setBounds(10, 120, 45, 45);
+        four.addActionListener(e -> {
+            if (display.getText().length() > 13) {
+                return;
+            }
+            if (display.getText().equalsIgnoreCase("0")) {
+                display.setText("4");
+                return;
+            }
+            display.append("4");
+        });
+        add(four);
+
+        // Adds number 5
+        JButton five = new JButton("5");
+        five.setBounds(55, 120, 45, 45);
+        five.addActionListener(e -> {
+            if (display.getText().length() > 13) {
+                return;
+            }
+            if (display.getText().equalsIgnoreCase("0")) {
+                display.setText("5");
+                return;
+            }
+            display.append("5");
+        });
+        add(five);
+
+        // Adds number 6
+        JButton six = new JButton("6");
+        six.setBounds(100, 120, 45, 45);
+        six.addActionListener(e -> {
+            if (display.getText().length() > 13) {
+                return;
+            }
+            if (display.getText().equalsIgnoreCase("0")) {
+                display.setText("6");
+                return;
+            }
+            display.append("6");
+        });
+        add(six);
+
+        // Adds number 1
+        JButton one = new JButton("1");
+        one.setBounds(10, 170, 45, 45);
+        one.addActionListener(e -> {
+            if (display.getText().length() > 13) {
+                return;
+            }
+            if (display.getText().equalsIgnoreCase("0")) {
+                display.setText("1");
+                return;
+            }
+            display.append("1");
+        });
+        add(one);
+
+        // Adds number 2
+        JButton two = new JButton("2");
+        two.setBounds(55, 170, 45, 45);
+        two.addActionListener(e -> {
+            if (display.getText().length() > 13) {
+                return;
+            }
+            if (display.getText().equalsIgnoreCase("0")) {
+                display.setText("2");
+                return;
+            }
+            display.append("2");
+        });
+        add(two);
+
+        // Adds number 3
+        JButton three = new JButton("3");
+        three.setBounds(100, 170, 45, 45);
+        three.addActionListener(e -> {
+            if (display.getText().length() > 13) {
+                return;
+            }
+            if (display.getText().equalsIgnoreCase("0")) {
+                display.setText("3");
+                return;
+            }
+            display.append("3");
+        });
+        add(three);
+
+        // Adds number 0
+        JButton zero = new JButton("0");
+        zero.setBounds(55, 220, 45, 45);
+        zero.addActionListener(e -> {
+            if (display.getText().length() > 13) {
+                return;
+            }
+            if (display.getText().equalsIgnoreCase("0")) {
+                display.setText("0");
+                return;
+            }
+            display.append("0");
+        });
+        add(zero);
+
+        // Adds the clear all button
+        JButton clear = new JButton("CE");
+        clear.setBounds(100, 270, 100, 45);
+        clear.addActionListener(e -> {
+            display.setText("0");
+            setTempFirst(0.0);
+            for (int i = 0; i < 4; i++) {
+                operation[i] = false;
+            }
+        });
+        add(clear);
+
+        // Adds . button
+        JButton decimal = new JButton(".");
+        decimal.setBounds(10, 220, 45, 45);
+        decimal.addActionListener(e -> {
+            if (display.getText().contains(".")) {
+                return;
+            }
+            display.append(".");
+        });
+        add(decimal);
+
+        // Adds positive/negative number ability
+        JButton posNeg = new JButton("+-");
+        posNeg.setBounds(100, 220, 45, 45);
+        posNeg.addActionListener(e -> {
+            if (display.getText().equalsIgnoreCase("0"))
+                return;
+            display.setText(Double.toString(Double.parseDouble(display.getText()) * (-1)));
+            if (display.getText().endsWith(".0"))
+                display.setText(display.getText().replace(".0", ""));
+        });
+        add(posNeg);
+
+        // Adds equals button and methods
+        JButton equals = new JButton("=");
+        equals.setBounds(10, 270, 90, 45);
+        equals.addActionListener(e -> {
+            if (operation[0]) {
+                display.setText(Double.toString(getTempFirst() + Double.parseDouble(display.getText())));
+            }
+            else if (operation[1]) {
+                display.setText(Double.toString(getTempFirst() - Double.parseDouble(display.getText())));
+            }
+            else if (operation[2]) {
+                display.setText(Double.toString(getTempFirst() * Double.parseDouble(display.getText())));
+            }
+            else if (operation[3]) {
+                display.setText(Double.toString(getTempFirst() / Double.parseDouble(display.getText())));
+            }
+            if (display.getText().endsWith(".0"))
+                display.setText(display.getText().replace(".0", ""));
+            setTempFirst(0.0);
+            for (int i = 0; i < 4; i++)
+                operation[i] = false;
+        });
+        add(equals);
+
+        // Adds addition button
+        JButton addition = new JButton("+");
+        addition.setBounds(155, 70, 45, 45);
+        addition.addActionListener(e -> {
+            setTempFirst(Double.parseDouble(display.getText()));
+            display.setText("0");
+            operation[0] = true;
+        });
+        add(addition);
+
+        // Adds subtraction button
+        JButton subtraction = new JButton("-");
+        subtraction.setBounds(155, 120, 45, 45);
+        subtraction.addActionListener(e -> {
+            setTempFirst(Double.parseDouble(display.getText()));
+            display.setText("0");
+            operation[1] = true;
+        });
+        add(subtraction);
+
+        // Adds multiplication
+        JButton multiplication = new JButton("*");
+        multiplication.setBounds(155, 170, 45, 45);
+        multiplication.addActionListener(e -> {
+            setTempFirst(Double.parseDouble(display.getText()));
+            display.setText("0");
+            operation[2] = true;
+        });
+        add(multiplication);
+
+        // Adds division
+        JButton division = new JButton("/");
+        division.setBounds(155, 220, 45, 45);
+        division.addActionListener(e -> {
+            setTempFirst(Double.parseDouble(display.getText()));
+            display.setText("0");
+            operation[3] = true;
+        });
+        add(division);
+    }
+
+    // Sends display to screen
+    private void sendDisplay() {
+        display = new JTextArea();
+        display.setBounds(10, 10, 315, 50);
+        display.setEditable(false);
+        display.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        display.setText("0");
+        display.setFont(new Font("Arial", Font.PLAIN, 30));
+        add(display);
+    }
+
+    // Displays screen
+    private void sendUI(Calculator app) {
+        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        app.setSize(350, 400);
+        app.setResizable(false);
+        app.setLocationRelativeTo(null);
+        app.setVisible(true);
+        app.setLayout(null);
+    }
+
+    public double getTempFirst() {
+        return tempFirst;
+    }
+    public void setTempFirst(double tempFirst) {
+        this.tempFirst = tempFirst;
+    }
+}
