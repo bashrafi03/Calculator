@@ -6,6 +6,7 @@ import java.awt.datatransfer.*;
 public class Calculator extends JFrame {
     private JTextArea display;
     private double tempFirst = 0.0;
+
     final private boolean[] operation = new boolean[4];
 
     public static void main(String[] args) {
@@ -19,10 +20,10 @@ public class Calculator extends JFrame {
 
     public Calculator() {
         super("Calculator");
+        sendButtons();
         sendMenuBar();
         sendUI(this);
         sendDisplay();
-        sendButtons();
     }
 
     // Sends menu bar to display
@@ -61,6 +62,7 @@ public class Calculator extends JFrame {
 
     // Sends buttons to display
     private void sendButtons() {
+
         // Adds number 7
         JButton seven = new JButton("7");
         seven.setBounds(10, 70, 45, 45);
@@ -328,8 +330,8 @@ public class Calculator extends JFrame {
         app.setSize(350, 400);
         app.setResizable(false);
         app.setLocationRelativeTo(null);
-        app.setVisible(true);
         app.setLayout(null);
+        app.setVisible(true);
     }
 
     public double getTempFirst() {
